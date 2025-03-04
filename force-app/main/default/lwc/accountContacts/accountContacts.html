@@ -1,0 +1,56 @@
+<template>
+    <!-- Account Picklist -->
+    <lightning-combobox
+        name="accountPicklist"
+        label="Select Account"
+        value={selectedAccountId}
+        options={accountOptions}
+        onchange={handleAccountChange}>
+    </lightning-combobox>
+
+    <!-- Contact Table: This will only show when an account is selected -->
+    <template if:true={selectedAccountId}>
+        <template if:true={contacts}>
+            <lightning-datatable
+                data={contacts}    
+                columns={columns}  
+                key-field="Id"    
+                onrowaction={handleRowAction}>
+            </lightning-datatable>
+        </template>
+    </template>
+
+    <!-- Modal for Contact Edit -->
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                            title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" size="small" alternative-text="close" class="slds-button__icon slds-button__icon_large"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 class="slds-text-heading_medium">Edit Contact</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <lightning-input label="First Name" value={contactToEdit.FirstName} onchange={handleInputChange} data-id="FirstName"></lightning-input>
+                    <lightning-input label="Last Name" value={contactToEdit.LastName} onchange={handleInputChange} data-id="LastName"></lightning-input>
+                    <lightning-input label="Email" value={contactToEdit.Email} onchange={handleInputChange} data-id="Email"></lightning-input>
+                    <template if:true={errorMessage}>
+                        <div class="slds-text-color_error slds-m-top_small">{errorMessage}</div>
+                    </template>
+                </div>
+                <footer class="slds-modal__footer">
+                    <lightning-button variant="neutral" label="Cancel" onclick={closeModal}></lightning-button>
+                    <lightning-button variant="brand" label="Save" onclick={saveContact}></lightning-button>
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+    <!-- Success Message -->
+    <template if:true={isSuccessMessageVisible}>
+        <lightning-toast title="Success" message="Contact updated successfully" variant="success"></lightning-toast>
+    </template>
+</template>

@@ -1,0 +1,23 @@
+<template>
+    <lightning-card>
+        <c-account-picklist onaccountchange={handleAccountChange}></c-account-picklist>
+
+        <template if:true={contacts}>
+            <lightning-datatable
+                data={contacts}
+                columns={columns}
+                key-field="Id"
+                onrowaction={handleRowAction}>
+            </lightning-datatable>
+        </template>
+
+        <!-- Modal for editing the contact -->
+        <template if:true={isModalOpen}>
+            <c-contact-edit-modal
+                contact-id={selectedContactId}
+                onclose={closeModal}
+                oncontactsave={handleContactSave}>
+            </c-contact-edit-modal>
+        </template>
+    </lightning-card>
+</template>

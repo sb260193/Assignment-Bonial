@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>Opportunity_Record_Link</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>To store Opportunity URL</shortDescription>
+        <value>https://gentrack-b-dev-ed.develop.lightning.force.com/lightning/r/Opportunity/{!Opportunity.Id}/view</value>
+    </labels>
+</CustomLabels>
